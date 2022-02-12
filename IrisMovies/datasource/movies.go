@@ -38,5 +38,3 @@ var Movies = map[int64]datamodels.Movie{
 		Poster: "https://iris-go.com/images/examples/mvc-movies/5.jpg",
 	},
 }
-
-=

@@ -20,7 +20,7 @@ type MovieRepository interface {
 
 	// 查询相关方法
 	Select(query Query) (movie datamodels.Movie, found bool)
-	selectMany(query Query, limit int) (results []datamodels.Movie)
+	SelectMany(query Query, limit int) (results []datamodels.Movie)
 
 	// 新增编辑删除
 	InsertOrUpdate(movie datamodels.Movie) (updateMovie datamodels.Movie, err error)
@@ -94,7 +94,7 @@ func (r *movieMemoryRepository) Select(query Query) (movie datamodels.Movie, fou
 	return
 }
 
-func (r *movieMemoryRepository) selectMany(query Query, limit int) (results []datamodels.Movie)  {
+func (r *movieMemoryRepository) SelectMany(query Query, limit int) (results []datamodels.Movie)  {
 	r.Exec(query, func(m datamodels.Movie) bool {
 		results = append(results,m)
 		return true
