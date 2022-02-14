@@ -2,7 +2,10 @@ module ImoocIrisShop
 
 go 1.17
 
-require github.com/kataras/iris/v12 v12.2.0-alpha5.0.20220122232131-4899fe95f47d
+require (
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/kataras/iris/v12 v12.2.0-alpha5.0.20220122232131-4899fe95f47d
+)
 
 require (
 	github.com/BurntSushi/toml v1.0.0 // indirect
@@ -16,7 +19,6 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
-	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.1.0 // indirect

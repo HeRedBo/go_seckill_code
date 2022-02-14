@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -59,7 +60,13 @@ func main() {
 	product.Register(ctx,productSerivce)
 	product.Handle(new(controllers.ProductController))
 
-
+	// 注册 Order 控制器
+	orderRepository := repositories.NewOrderRepository("orders",db)
+	orderService := services.NewOrderService(orderRepository)
+	orderParty := app.Party("/order")
+	order := mvc.New(orderParty)
+	order.Register(ctx,orderService)
+	order.Handle(new(controllers.OrderController))
 	// 6、启动服务
 	app.Run(
 		// 启动服务在8080端口

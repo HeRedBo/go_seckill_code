@@ -1,0 +1,52 @@
+<div class="page-head">
+    <h2 class="page-head-title">订单管理</h2>
+
+</div>
+
+<div class="main-content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-border-color panel-border-color-primary">
+                <div class="panel-heading panel-heading-divider">订单详情<span class="panel-subtitle">可以修改信息</span></div>
+                <div class="panel-body">
+                    <form action="/order/update" style="border-radius: 0px;" class="form-horizontal group-border-dashed" method="post" >
+<!--                        <input type="text" name="ID" value="{{.product.ID}}" hidden>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">订单ID </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="ProductName" value="{{.order.id}}" readonly disabled>
+                                <input type="hidden" class="form-control" name="id" value="{{.order.id}}">
+                                <input type="hidden" class="form-control" name="product_id" value="{{.order.product_id}}">
+                                <input type="hidden" class="form-control" name="user_id" value="{{.order.user_id}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品名称</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="project_name" value="{{.order.product_name}}" readonly disabled>
+<!--                                <input type="hidden" class="form-control" name="product" value="{{.order.product_id}}">-->
+                            </div>
+                        </div>
+<!--                      -->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">订单状态</label>
+                            <div class="col-sm-6">
+                                <input type="text"   class="form-control" name="order_status" value="{{.order.order_status}}">
+                            </div>
+                        </div>
+                        <div class="row xs-pt-15">
+                            <div class="col-xs-6">
+                                <p class="text-right">
+                                    <button type="submit" class="btn btn-space btn-primary">修改</button>
+                                    <button class="btn btn-space btn-default" type="reset">重置</button>
+                                </p>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
