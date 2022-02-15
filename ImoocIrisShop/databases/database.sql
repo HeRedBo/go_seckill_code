@@ -25,4 +25,12 @@ CREATE TABLE `orders` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单信息表';
 
-
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `nickname` varchar(60)  NOT NULL DEFAULT "" COMMENT '用户昵称',
+  `username` varchar(60)  NOT NULL DEFAULT "" COMMENT '用户名称',
+  `password` varchar(255)  NOT NULL DEFAULT  "" COMMENT '密码' ,
+  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime DEFAULT  NULL  COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户信息表';

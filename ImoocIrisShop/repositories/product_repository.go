@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"ImoocIrisShop/backend/common"
+	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
 	"database/sql"
 	"log"

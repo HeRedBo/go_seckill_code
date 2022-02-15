@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"ImoocIrisShop/backend/common"
+	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
 	"ImoocIrisShop/services"
 	"github.com/kataras/iris/v12"
@@ -36,7 +36,7 @@ func (p *ProductController) GetAdd() mvc.View {
 func (p *ProductController) PostAdd() {
 	product :=&datamodels.Product{}
 	p.Ctx.Request().ParseForm()
-	dec := common.NewDecoder(&common.DecoderOptions{TagName:"imooc"})
+	dec := common.NewDecoder(&common.DecoderOptions{TagName: "imooc"})
 	if err:= dec.Decode(p.Ctx.Request().Form,product);err!=nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}

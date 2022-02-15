@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"ImoocIrisShop/backend/common"
+	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
 	"ImoocIrisShop/services"
 	"github.com/kataras/iris/v12"

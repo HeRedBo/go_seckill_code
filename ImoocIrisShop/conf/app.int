@@ -1,0 +1,8 @@
+
+[database]
+Type = mysql
+User = root
+Password = root
+Host = 127.0.0.1:3306
+Name = imooc_shop
+TablePrefix =
