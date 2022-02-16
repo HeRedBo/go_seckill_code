@@ -22,7 +22,7 @@ func main() {
 	//4.设置模板
 	app.HandleDir("/public", "./fronted/web/public")
 	//访问生成好的html静态文件
-	app.HandleDir("/html", "./fronted/web/htmlProductShow")
+	//app.HandleDir("/html", "./fronted/web/html")
 	//出现异常跳转到指定页面
 	app.OnAnyErrorCode(func(ctx iris.Context) {
 		ctx.ViewData("message", ctx.Values().GetStringDefault("message", "访问的页面出错！"))
@@ -31,7 +31,7 @@ func main() {
 	})
 
 	// 连接数据库
-	db,err := common.NewGormMysqlConn()
+	db2,err := common.NewGormMysqlConn()
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
@@ -39,18 +39,14 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	// 注册控制器
-	userRepository := repositories.NewUserRepository(db)
+	userRepository := repositories.NewUserRepository(db2)
 	userService    := services.NewUserService(userRepository)
-	productParty := app.Party("/product")
-	product := mvc.New(productParty)
-	product.Register(ctx,userService)
-	product.Handle(new(controllers2.UserController))
+	userParty := app.Party("/user")
+	user := mvc.New(userParty)
+	user.Register(userService,ctx)
+	user.Handle(new(controllers2.UserController))
 
 
-	//db,err := common.NewMysqlConn()
-	//if err != nil {
-	//	log.Fatalf("%s", err)
-	//}
 
 	// 6、启动服务
 	app.Run(
