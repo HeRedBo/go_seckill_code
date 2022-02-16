@@ -6,9 +6,14 @@ import (
 	"ImoocIrisShop/repositories"
 	"ImoocIrisShop/services"
 	"context"
+	"fmt"
+	"log"
+	"time"
+
+	"github.com/kataras/iris/v12/sessions"
+
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"log"
 )
 
 func main() {
@@ -17,8 +22,8 @@ func main() {
 	//2.设置错误模式，在mvc模式下提示错误
 	app.Logger().SetLevel("debug")
 	//3.注册模板
-	tmplate := iris.HTML("./fronted/web/views", ".html").Layout("shared/layout.html").Reload(true)
-	app.RegisterView(tmplate)
+	template := iris.HTML("./fronted/web/views", ".html").Layout("shared/layout.html").Reload(true)
+	app.RegisterView(template)
 	//4.设置模板
 	app.HandleDir("/public", "./fronted/web/public")
 	//访问生成好的html静态文件
@@ -31,23 +36,27 @@ func main() {
 	})
 
 	// 连接数据库
-	db2,err := common.NewGormMysqlConn()
+	db, err := common.NewGormMysqlConn()
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
 
+	sess := sessions.New(sessions.Config{
+		Cookie:  "AdminCookie",
+		Expires: 600 * time.Minute,
+	})
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	// 注册控制器
-	userRepository := repositories.NewUserRepository(db2)
-	userService    := services.NewUserService(userRepository)
+	userRepository := repositories.NewUserRepository(db)
+	userService := services.NewUserService(userRepository)
 	userParty := app.Party("/user")
 	user := mvc.New(userParty)
-	user.Register(userService,ctx)
+	fmt.Println(sess)
+	user.Register(ctx, userService, sess)
+	app.UseRouter(sess.Handler())
+	//app.Use(sess.Handler())
 	user.Handle(new(controllers2.UserController))
-
-
-
 	// 6、启动服务
 	app.Run(
 		// 启动服务在8080端口
@@ -59,6 +68,5 @@ func main() {
 		//让程序自身尽可能的优化
 		iris.WithOptimizations,
 	)
-
 
 }

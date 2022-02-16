@@ -24,6 +24,7 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
+	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/go-ini/ini v1.66.4 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
@@ -44,6 +45,7 @@ require (
 	github.com/kataras/golog v0.1.7 // indirect
 	github.com/kataras/neffos v0.0.18 // indirect
 	github.com/kataras/pio v0.0.10 // indirect
+	github.com/kataras/rizla v0.1.1 // indirect
 	github.com/kataras/sitemap v0.0.5 // indirect
 	github.com/kataras/tunnel v0.0.3 // indirect
 	github.com/klauspost/compress v1.14.2 // indirect
