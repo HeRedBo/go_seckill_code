@@ -8,5 +8,5 @@ import (
 
 type ProductController struct {
 	Ctx            iris.Context
-	ProductService services.ProductSerive
+	ProductService services.ProductService
 }

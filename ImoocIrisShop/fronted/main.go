@@ -2,6 +2,7 @@ package main
 
 import (
 	"ImoocIrisShop/common"
+	"ImoocIrisShop/fronted/middleware"
 	controllers2 "ImoocIrisShop/fronted/web/controllers"
 	"ImoocIrisShop/repositories"
 	"ImoocIrisShop/services"
@@ -57,6 +58,22 @@ func main() {
 	app.UseRouter(sess.Handler())
 	//app.Use(sess.Handler())
 	user.Handle(new(controllers2.UserController))
+
+	// 注册 product 控制器
+	db2, err := common.NewMysqlConn()
+	if err != nil {
+
+	}
+	product := repositories.NewProductRepository("product", db2)
+	productService := services.NewProductService(product)
+	order := repositories.NewOrderRepository("order", db2)
+	orderService := services.NewOrderService(order)
+	proProduct := app.Party("/product")
+	pro := mvc.New(proProduct)
+	proProduct.Use(middleware.AuthCheck)
+	pro.Register(productService, orderService)
+	pro.Handle(new(controllers2.ProductController))
+
 	// 6、启动服务
 	app.Run(
 		// 启动服务在8080端口
