@@ -3,10 +3,10 @@ package controllers
 import (
 	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
+	"ImoocIrisShop/encrypt"
 	"ImoocIrisShop/services"
 	"ImoocIrisShop/tool"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/kataras/iris/v12/sessions"
@@ -74,8 +74,14 @@ func (u *UserController) PostLogin() mvc.Response {
 
 	// 将用户ID 写入到 Cookie中
 	tool.GlobalCookie(u.Ctx, "uid", strconv.FormatInt(user.ID, 10))
+	uidByte := []byte(strconv.FormatInt(user.ID, 10))
+	uidString, err := encrypt.EnPwdCode(uidByte)
+	if err != nil {
+		fmt.Println(err)
+	}
+	//写入用户浏览器
+	tool.GlobalCookie(u.Ctx, "sign", uidString)
 	u.Session.Set("userID", strconv.FormatInt(user.ID, 10))
-	log.Println("login success")
 
 	// 跳转到 产品首页
 	return mvc.Response{
