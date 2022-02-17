@@ -66,8 +66,10 @@ func main() {
 	}
 	product := repositories.NewProductRepository("product", db2)
 	productService := services.NewProductService(product)
-	order := repositories.NewOrderRepository("order", db2)
+	order := repositories.NewOrderRepository("orders", db2)
+	fmt.Println("order_order", order)
 	orderService := services.NewOrderService(order)
+
 	proProduct := app.Party("/product")
 	pro := mvc.New(proProduct)
 	proProduct.Use(middleware.AuthCheck)

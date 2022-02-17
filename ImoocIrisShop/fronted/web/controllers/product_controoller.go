@@ -13,8 +13,8 @@ import (
 
 type ProductController struct {
 	Ctx            iris.Context
-	ProductService services.ProductService
-	OrderService   services.OrderService
+	ProductService services.IProductService
+	OrderService   services.IOrderService
 	Session        *sessions.Session
 }
 
@@ -24,7 +24,7 @@ func (p *ProductController) GetDetail() mvc.View {
 		p.Ctx.Application().Logger().Error(err)
 	}
 	return mvc.View{
-		Layout: "share/productLayout.html",
+		Layout: "shared/productLayout.html",
 		Name:   "product/view.html",
 		Data: iris.Map{
 			"product": product,
@@ -71,7 +71,7 @@ func (p *ProductController) GetOrder() mvc.View {
 
 	}
 	return mvc.View{
-		Layout: "share/productLayout.html",
+		Layout: "shared/productLayout.html",
 		Name:   "product/result.html",
 		Data: iris.Map{
 			"orderID":     orderID,
