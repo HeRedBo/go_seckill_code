@@ -28,7 +28,7 @@ func main() {
 	//4.设置模板
 	app.HandleDir("/public", "./fronted/web/public")
 	//访问生成好的html静态文件
-	//app.HandleDir("/html", "./fronted/web/html")
+	app.HandleDir("/html", "./fronted/web/views/htmlProductShow/")
 	//出现异常跳转到指定页面
 	app.OnAnyErrorCode(func(ctx iris.Context) {
 		ctx.ViewData("message", ctx.Values().GetStringDefault("message", "访问的页面出错！"))
