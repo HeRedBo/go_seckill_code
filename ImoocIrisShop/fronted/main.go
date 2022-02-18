@@ -62,8 +62,9 @@ func main() {
 	if err != nil {
 
 	}
+
 	rabbitmq := rabbitmq.NewRabbitMQSimple("imoocProduct")
-	product := repositories.NewProductRepository("product", db2)
+	product := repositories.NewProductRepository("product", db)
 	productService := services.NewProductService(product)
 	order := repositories.NewOrderRepository("orders", db2)
 	orderService := services.NewOrderService(order)
@@ -72,6 +73,7 @@ func main() {
 	pro := mvc.New(proProduct)
 	proProduct.Use(middleware.AuthCheck)
 	pro.Register(productService, orderService, rabbitmq)
+
 	pro.Handle(new(controllers2.ProductController))
 
 	// 6、启动服务
