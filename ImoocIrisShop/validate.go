@@ -1,6 +1,7 @@
-package ImoocIrisShopw
+package main
 
 import (
+	"ImoocIrisShop/common"
 	"ImoocIrisShop/encrypt"
 	"errors"
 	"fmt"
@@ -136,4 +137,20 @@ func checkInfo(checkStr string, signStr string) bool {
 		return true
 	}
 	return false
+}
+
+func main() {
+
+	hashConsistent := common.NewConsistent()
+	for _, v := range hostArray {
+		hashConsistent.Add(v)
+	}
+
+	filter := common.NewFilter()
+
+	filter.RegisterFilterUri("/check", Auth)
+
+	http.HandleFunc("/check", filter.Handle(Check))
+	//启动服务
+	http.ListenAndServe(":8083", nil)
 }

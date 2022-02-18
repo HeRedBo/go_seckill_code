@@ -4,10 +4,10 @@ import (
 	"ImoocIrisShop/common"
 	"ImoocIrisShop/fronted/middleware"
 	controllers2 "ImoocIrisShop/fronted/web/controllers"
+	"ImoocIrisShop/rabbitmq"
 	"ImoocIrisShop/repositories"
 	"ImoocIrisShop/services"
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -53,10 +53,8 @@ func main() {
 	userService := services.NewUserService(userRepository)
 	userParty := app.Party("/user")
 	user := mvc.New(userParty)
-	fmt.Println(sess)
 	user.Register(ctx, userService, sess)
 	app.UseRouter(sess.Handler())
-	//app.Use(sess.Handler())
 	user.Handle(new(controllers2.UserController))
 
 	// 注册 product 控制器
@@ -64,16 +62,16 @@ func main() {
 	if err != nil {
 
 	}
+	rabbitmq := rabbitmq.NewRabbitMQSimple("imoocProduct")
 	product := repositories.NewProductRepository("product", db2)
 	productService := services.NewProductService(product)
 	order := repositories.NewOrderRepository("orders", db2)
-	fmt.Println("order_order", order)
 	orderService := services.NewOrderService(order)
 
 	proProduct := app.Party("/product")
 	pro := mvc.New(proProduct)
 	proProduct.Use(middleware.AuthCheck)
-	pro.Register(productService, orderService)
+	pro.Register(productService, orderService, rabbitmq)
 	pro.Handle(new(controllers2.ProductController))
 
 	// 6、启动服务

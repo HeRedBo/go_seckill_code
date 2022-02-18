@@ -1,7 +1,6 @@
 package common
 
 import (
-	"container/list"
 	"errors"
 	"hash/crc32"
 	"sort"
@@ -18,7 +17,7 @@ func (x units) Len() int {
 }
 
 // 比较两个数大小
-func (x units) Less(i, j int) _bool {
+func (x units) Less(i, j int) bool {
 	return x[i] < x[j]
 }
 

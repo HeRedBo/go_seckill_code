@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"ImoocIrisShop/datamodels"
+	"ImoocIrisShop/rabbitmq"
 	"ImoocIrisShop/services"
+	"encoding/json"
 	"html/template"
 	"os"
 	"path/filepath"
@@ -19,6 +21,7 @@ type ProductController struct {
 	ProductService services.IProductService
 	OrderService   services.IOrderService
 	Session        *sessions.Session
+	RabbitMQ       *rabbitmq.RabbitMQ
 }
 
 var (
@@ -138,4 +141,29 @@ func (p *ProductController) GetOrder() mvc.View {
 			"showMessage": showMessage,
 		},
 	}
+}
+
+/**
+下单
+*/
+func (p *ProductController) GetDoneOrder() {
+	productString := p.Ctx.URLParam("productID")
+	userString := p.Ctx.GetCookie("uid")
+	productID, err := strconv.ParseInt(productString, 10, 64)
+	if err != nil {
+		p.Ctx.Application().Logger().Debug(err)
+	}
+
+	userID, err := strconv.ParseInt(userString, 10, 64)
+	if err != nil {
+		p.Ctx.Application().Logger().Debug(err)
+	}
+	// 创建消息体
+	message := datamodels.NewMessage(userID, productID)
+	// 类型转换
+	byteMessage, err := json.Marshal(message)
+	if err != nil {
+		p.Ctx.Application().Logger().Debug(err)
+	}
+	err = p.RabbitMQ.PublishSimple(string(byteMessage))
 }
