@@ -41,10 +41,10 @@ func main() {
 	})
 
 	// 连接数据库
-	db, err := common.NewMysqlConn()
-	if err != nil {
-		log.Fatalf("%s", err)
-	}
+	//db, err := common.NewMysqlConn()
+	//if err != nil {
+	//	log.Fatalf("%s", err)
+	//}
 
 	db2, err := common.NewGormMysqlConn()
 	if err != nil {
@@ -63,7 +63,7 @@ func main() {
 	product.Handle(new(controllers.ProductController))
 
 	// 注册 Order 控制器
-	orderRepository := repositories.NewOrderRepository("orders", db)
+	orderRepository := repositories.NewOrderRepository("orders", db2)
 	orderService := services.NewOrderService(orderRepository)
 	orderParty := app.Party("/order")
 	order := mvc.New(orderParty)

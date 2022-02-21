@@ -6,14 +6,15 @@ import (
 )
 
 type IOrderService interface {
-	GetOrderByID(int64) (*datamodels.Order, error)
+	//GetOrderByID(int64) (*datamodels.Order, error)
 	GetOrderInfoBy(int64) (map[string]string, error)
 	InsertOrder(*datamodels.Order) (int64, error)
 	DeleteByID(int64) bool
 	UpdateOrder(*datamodels.Order) error
-	GetAllOrder() ([]*datamodels.Order, error)
-	GetAllOrderInfo() (map[int]map[string]string, error)
-	InsertOrderByMessage(*datamodels.Message) (int64, error)
+	//GetAllOrder() ([]*datamodels.Order, error)
+	// GetAllOrderInfo() (map[int]map[string]string, error)
+	GetAllOrderInfo() ([]*datamodels.Order, error)
+	//InsertOrderByMessage(*datamodels.Message) (int64, error)
 }
 
 type OrderService struct {
@@ -32,6 +33,7 @@ func (o *OrderService) GetOrderInfoBy(orderID int64) (map[string]string, error) 
 	return o.OrderRepository.SelectInfoByKey(orderID)
 }
 
+//
 func (o *OrderService) InsertOrder(order *datamodels.Order) (orderID int64, err error) {
 	return o.OrderRepository.Insert(order)
 }
@@ -48,7 +50,7 @@ func (o *OrderService) GetAllOrder() ([]*datamodels.Order, error) {
 	return o.OrderRepository.SelectAll()
 }
 
-func (o *OrderService) GetAllOrderInfo() (map[int]map[string]string, error) {
+func (o *OrderService) GetAllOrderInfo() ([]*datamodels.Order, error) {
 	return o.OrderRepository.SelectAllWithInfo()
 }
 

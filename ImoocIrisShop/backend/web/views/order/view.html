@@ -24,16 +24,15 @@
                             <tbody>
                             {{range $i, $v := .order}}
                             <tr>
-                                <td class="user-avatar cell-detail user-info">{{$v.id}}</td>
-                                <td class="cell-detail"></td>
-                                <td class="milestone"> {{$v.product_name}}
+                                <td class="user-avatar cell-detail user-info">{{$v.ID}}</td>
+                                <td class="cell-detail">  {{$v.User.Username}}</td>
+                                <td class="milestone"> {{$v.Product.ProductName}}
                                 </td>
-                                <td class="cell-detail">{{ if eq $v.order_status "1"}} 已发货 {{else}} 未发货 {{end}}</td>
+                                <td class="cell-detail">{{ if eq $v.OrderStatus 1}} 已发货 {{else}} 未发货 {{end}}</td>
                                 <td class="cell-detail">
-                                    <a href="/order/edit?id={{$v.id}}"><button class="btn btn-space btn-primary">修改</button></a>
-                                    <a href="/order/delete?id={{$v.id}}"><button class="btn btn-space btn-danger">删除</button></a>
+                                    <a href="/order/edit?id={{$v.ID}}"><button class="btn btn-space btn-primary">修改</button></a>
+                                    <a href="/order/delete?id={{$v.ID}}"><button class="btn btn-space btn-danger">删除</button></a>
                                 </td>
-
                             </tr>
                             {{end}}
                             </tbody>
