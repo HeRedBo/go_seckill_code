@@ -3,7 +3,6 @@ package repositories
 import (
 	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
-	"log"
 	"strconv"
 
 	"github.com/jinzhu/gorm"
@@ -153,18 +152,14 @@ func (p *productRepository) SelectAll() (productArray []*datamodels.Product, err
 	if len(results) == 0 {
 		return nil, nil
 	}
-	log.Println(results)
 	// 遍历数据 指针
-	slices := make([]*datamodels.Product, 0, 100)
-	for _, v := range results {
-		//v = &v
-		slices = append(slices, &v)
-		productArray = append(productArray, &v)
+	// 数据类型转换 range 方式无法去操作 内容问题
+	for i := 0; i < len(results); i++ {
+		tmp := &results[i]
+		productArray = append(productArray, tmp)
 	}
-	log.Println("slices", slices)
-	log.Println("productArray", productArray)
 
-	return slices, nil
+	return productArray, nil
 
 	//sql := "Select * from " + p.table
 	//rows, err := p.mysqlConn.Query(sql)

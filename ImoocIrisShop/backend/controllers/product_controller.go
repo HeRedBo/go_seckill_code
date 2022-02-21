@@ -17,13 +17,12 @@ type ProductController struct {
 
 func (p *ProductController) GetAll() interface{} {
 	productArray, _ := p.ProductService.GetAllProduct()
-	return productArray
-	//return mvc.View{
-	//	Name: "product/view.html",
-	//	Data: iris.Map{
-	//		"productArray": productArray,
-	//	},
-	//}
+	return mvc.View{
+		Name: "product/view.html",
+		Data: iris.Map{
+			"productArray": productArray,
+		},
+	}
 }
 
 // 产品添加
