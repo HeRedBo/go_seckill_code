@@ -2,20 +2,21 @@ package common
 
 import (
 	"database/sql"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func NewMysqlConn() (db *sql.DB,err error) {
+func NewMysqlConn() (db *sql.DB, err error) {
 	db, err = sql.Open("mysql", "root:root@tcp(localhost:3306)/imooc_shop?charset=utf8")
 	return
 }
 
 // 获取返回值，获取一条
-func GetResultRow(rows  *sql.Rows) map[string]string{
+func GetResultRow(rows *sql.Rows) map[string]string {
 	columns, _ := rows.Columns()
 	scanArgs := make([]interface{}, len(columns))
-	values 	 := make([]interface{},len(columns))
-	for j := range values{
+	values := make([]interface{}, len(columns))
+	for j := range values {
 		scanArgs[j] = &values[j]
 	}
 	record := make(map[string]string)

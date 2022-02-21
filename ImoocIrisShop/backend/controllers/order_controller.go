@@ -80,3 +80,12 @@ func (o *OrderController) GetDelete() {
 	}
 	o.Ctx.Redirect("/order/")
 }
+
+// SQL 调试方法
+func (o *OrderController) GetSqltest() interface{} {
+	result, err := o.OrderService.GetOrderDataBySql()
+	if err != nil {
+		log.Println(err)
+	}
+	return result
+}

@@ -15,6 +15,8 @@ type IOrderService interface {
 	// GetAllOrderInfo() (map[int]map[string]string, error)
 	GetAllOrderInfo() ([]*datamodels.Order, error)
 	//InsertOrderByMessage(*datamodels.Message) (int64, error)
+
+	GetOrderDataBySql() (map[int]map[string]string, error)
 }
 
 type OrderService struct {
@@ -61,4 +63,8 @@ func (o *OrderService) InsertOrderByMessage(message *datamodels.Message) (orderI
 		OrderStatus: datamodels.OrderSuccess,
 	}
 	return o.InsertOrder(order)
+}
+
+func (o *OrderService) GetOrderDataBySql() (map[int]map[string]string, error) {
+	return o.OrderRepository.GetOrderDataBySql()
 }

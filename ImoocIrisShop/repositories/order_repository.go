@@ -3,6 +3,7 @@ package repositories
 import (
 	"ImoocIrisShop/common"
 	"ImoocIrisShop/datamodels"
+	"log"
 	"strconv"
 
 	"github.com/jinzhu/gorm"
@@ -17,6 +18,7 @@ type IOrderRepository interface {
 	SelectInfoByKey(int64) (map[string]string, error)
 	SelectAll() ([]*datamodels.Order, error)
 	SelectAllWithInfo() ([]*datamodels.Order, error)
+	GetOrderDataBySql() (map[int]map[string]string, error)
 }
 
 type OrderRepository struct {
@@ -243,4 +245,24 @@ func (o *OrderRepository) SelectAllWithInfo() (orders []*datamodels.Order, err e
 	//	return nil, errRows
 	//}
 	//return common.GetResultRows(rows), err
+}
+
+// 执行原生SQl 查询数据库记录
+func (o *OrderRepository) GetOrderDataBySql() (map[int]map[string]string, error) {
+
+	// 不用连表的数据SQL
+	sql := "select * from orders"
+	rows, errRow := o.mysqlConn.Raw(sql).Rows()
+	defer rows.Close()
+
+	if errRow != nil {
+		return nil, errRow
+	}
+	log.Println("rows", rows)
+	result := common.GetResultRows(rows)
+	if len(result) == 0 {
+		return map[int]map[string]string{}, nil
+	}
+	return result, nil
+
 }
