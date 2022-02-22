@@ -1,7 +1,10 @@
 package common
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"reflect"
 	"strconv"
@@ -70,4 +73,23 @@ func TypeConversion(value string, ntype string) (reflect.Value, error) {
 	//else if .......增加其他一些类型的转换
 
 	return reflect.ValueOf(value), errors.New("未知的类型：" + ntype)
+}
+
+// 美化结构提输入 map 变量等
+
+func PrettyPrint(v interface{}) {
+	b, err := json.Marshal(v)
+	if err != nil {
+		fmt.Println(v)
+		return
+	}
+
+	var out bytes.Buffer
+	err = json.Indent(&out, b, "", "  ")
+	if err != nil {
+		fmt.Println(v)
+		return
+	}
+
+	fmt.Println(out.String())
 }

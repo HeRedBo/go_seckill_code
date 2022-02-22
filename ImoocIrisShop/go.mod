@@ -6,6 +6,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/kataras/iris/v12 v12.2.0-alpha5.0.20220122232131-4899fe95f47d
+	github.com/sirupsen/logrus v1.8.1
 	github.com/streadway/amqp v1.0.0
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	gopkg.in/ini.v1 v1.66.4

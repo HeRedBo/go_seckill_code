@@ -14,7 +14,7 @@ type IOrderService interface {
 	//GetAllOrder() ([]*datamodels.Order, error)
 	// GetAllOrderInfo() (map[int]map[string]string, error)
 	GetAllOrderInfo() ([]*datamodels.Order, error)
-	//InsertOrderByMessage(*datamodels.Message) (int64, error)
+	InsertOrderByMessage(*datamodels.Message) (int64, error)
 
 	GetOrderDataBySql() (map[int]map[string]string, error)
 }

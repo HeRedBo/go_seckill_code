@@ -58,15 +58,15 @@ func main() {
 	user.Handle(new(controllers2.UserController))
 
 	// 注册 product 控制器
-	db2, err := common.NewMysqlConn()
-	if err != nil {
-
-	}
+	//db2, err := common.NewMysqlConn()
+	//if err != nil {
+	//
+	//}
 
 	rabbitmq := rabbitmq.NewRabbitMQSimple("imoocProduct")
 	product := repositories.NewProductRepository("product", db)
 	productService := services.NewProductService(product)
-	order := repositories.NewOrderRepository("orders", db2)
+	order := repositories.NewOrderRepository("orders", db)
 	orderService := services.NewOrderService(order)
 
 	proProduct := app.Party("/product")

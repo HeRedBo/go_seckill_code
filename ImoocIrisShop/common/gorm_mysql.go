@@ -2,8 +2,10 @@ package common
 
 import (
 	"ImoocIrisShop/pkg/setting"
+	"ImoocIrisShop/tool"
 	"fmt"
-	"log"
+
+	log "github.com/sirupsen/logrus"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -27,11 +29,6 @@ func NewGormMysqlConn() (db *gorm.DB, err error) {
 	host = sec.Key("Host").String()
 	tablePrefix = sec.Key("TablePrefix").String()
 
-	fmt.Println(fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		user,
-		password,
-		host,
-		dbName))
 	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
@@ -41,6 +38,9 @@ func NewGormMysqlConn() (db *gorm.DB, err error) {
 	if err != nil {
 		log.Println(err)
 	}
+	queryLogger := tool.NewGormQueryLogger()
+	db.SetLogger(queryLogger)
+	db.LogMode(true)
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return tablePrefix + defaultTableName
