@@ -56,10 +56,10 @@ func main() {
 
 	// 5、注册控制器
 	productRepository := repositories.NewProductRepository("product", db2)
-	productSerivce := services.NewProductService(productRepository)
+	productService := services.NewProductService(productRepository)
 	productParty := app.Party("/product")
 	product := mvc.New(productParty)
-	product.Register(ctx, productSerivce)
+	product.Register(ctx, productService)
 	product.Handle(new(controllers.ProductController))
 
 	// 注册 Order 控制器
