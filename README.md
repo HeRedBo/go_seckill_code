@@ -6,5 +6,6 @@
 ├── GoRabbitMQ   ## RabbitMQ 示例代码 
 ├── IrisFrameWork  ## Iris 基础入门实例 
 ├── IrisMovies   # Iris 中文文档电影项目入门实例代码
+├── ImoocIrisShop   # Iris 商城秒杀项目示例代码
 
 ```
